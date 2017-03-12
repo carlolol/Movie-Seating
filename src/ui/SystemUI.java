@@ -18,12 +18,12 @@ public class SystemUI extends JFrame
 	private CardLayout card;
 	
 	private MovieDAO movieDAO;
-	private ReservationsDAO reservationDAO;
+	private ReservationsDAO reservationsDAO;
 	private ShowtimeDAO showtimeDAO;
 	private UserDAO userDAO;
 	private Customer loginCustomer;
 	
-	private SeatingArrangementUI seatingArrangementUI;
+	private ReservationsUI reservationsUI;
 	private LoginUI loginUI;
 	private RegistrationUI registrationUI;
 	private CustomerMenuUI customerMenuUI;
@@ -42,6 +42,8 @@ public class SystemUI extends JFrame
 		connection = setupConnection();
 		
 		userDAO = new UserDAO(connection);
+		movieDAO = new MovieDAO(connection);
+		
 		
 		img = new ImageIcon("");
 		setIconImage(img.getImage());
@@ -51,8 +53,8 @@ public class SystemUI extends JFrame
 		card = new CardLayout();
 		container.setLayout(card);
 		
-		seatingArrangementUI = new SeatingArrangementUI(this);
-		container.add(seatingArrangementUI, "Seat");
+		reservationsUI = new ReservationsUI(this);
+		container.add(reservationsUI, "Reservations");
 		
 		loginUI = new LoginUI(this);
 		container.add(loginUI, "Login");
@@ -84,12 +86,13 @@ public class SystemUI extends JFrame
 		setVisible(true);
 	}
 	
-	public void showSeat()
+	public void showReservations(String movieTitle, String movieId, String time)
 	{
 		setSize(900, 400);
 		setLocationRelativeTo(null);
-		card.show(container, "Seat");
-//		pack();
+		card.show(container, "Reservations");
+		reservationsDAO = new ReservationsDAO(connection, movieId, time);
+		reservationsUI.setupUI(movieId, movieTitle, time);
 		repaint();
 	}
 	
@@ -130,12 +133,13 @@ public class SystemUI extends JFrame
 		setSize(365, 190);
 		setLocationRelativeTo(null);
 		card.show(container, "Movie Selection");
+		movieSelectionUI.updateComboBoxes();
 		repaint();
 	}
 	
 	public void showMovieManagement()
 	{
-		setSize(490, 275);
+		setSize(490, 330);
 		setLocationRelativeTo(null);
 		card.show(container, "Movie Management");
 		repaint();
@@ -188,14 +192,14 @@ public class SystemUI extends JFrame
 		this.showtimeDAO = showtimeDAO;
 	}
 
-	public ReservationsDAO getReservationDAO() 
+	public ReservationsDAO getReservationsDAO() 
 	{
-		return reservationDAO;
+		return reservationsDAO;
 	}
 
-	public void setReservationDAO(ReservationsDAO reservationDAO) 
+	public void setReservationsDAO(ReservationsDAO reservationsDAO) 
 	{
-		this.reservationDAO = reservationDAO;
+		this.reservationsDAO = reservationsDAO;
 	}
 
 	public MovieDAO getMovieDAO() 

@@ -35,7 +35,8 @@ create table showtime
 (
   movieId varchar(5),
   hallNo integer,
-  time varchar(5),
+  time varchar(5) not null,
+  constraint showtime_PK Primary Key(time),
   constraint showtime_movieId_FK Foreign Key(movieId) references movie
 );
 
@@ -54,12 +55,14 @@ create table customer
 -- create reservations table...
 create table reservations
 (
-  movieId varchar(5),
   customerId varchar(18),
+  movieId varchar(5) not null,
+  time varchar(5) not null,
   seatNo varchar(3) not null,
-  constraint reservations_PK Primary Key(seatNo),
-  constraint reservations_name_FK Foreign Key(customerId) references customer,
-  constraint reservations_titleId_FK Foreign Key(movieId) references movie
+  primary key(movieId, time, seatNo),
+  constraint reservations_customerId_FK Foreign Key(customerId) references customer,
+  constraint reservations_movieId_FK Foreign Key(movieId) references movie,
+  constraint reservations_showtime_FK Foreign Key(time) references showtime
 );
 
 INSERT INTO admin VALUES ('admin', 'Gabe Newell', 'admin', 'CEO');
@@ -70,7 +73,6 @@ INSERT INTO movie VALUES ('FSOG', 'Fifty Shades of Grey', 'Romance', 130, 95.00)
 INSERT INTO movie VALUES ('TTNIC', 'Titanic', 'Drama', 150, 85.50);
 INSERT INTO movie VALUES ('KGLVE', 'Kingsglaive', 'Action', 120, 100.00);
 
- 
 INSERT INTO showtime VALUES ('DPOOL', 1, '12:00');
 INSERT INTO showtime VALUES ('DPOOL', 2, '15:00');
 INSERT INTO showtime VALUES ('FROZN', 3, '12:10');
@@ -81,11 +83,14 @@ INSERT INTO showtime VALUES ('TTNIC', 6, '12:20');
 INSERT INTO showtime VALUES ('KGLVE', 7, '11:30');
 INSERT INTO showtime VALUES ('KGLVE', 8, '14:10');
 
-
 INSERT INTO customer VALUES ('cust1', 'Richard Simmons', 'cust1', 35, 'M', 'Actor');
 INSERT INTO customer VALUES ('cust2', 'Megan Fox', 'cust2', 33, 'F', 'Actress');
 INSERT INTO customer VALUES ('cust3', 'Mia Khalifa', 'cust3', 24, 'F', 'Entertainer');
 INSERT INTO customer VALUES ('cust4', 'Mini Ladd', 'cust4', 15, 'M', 'Teacher');
 INSERT INTO customer VALUES ('cust5', 'Ken Lee', 'cust5', 19, 'M', 'Singer');
+
+INSERT INTO reservations VALUES ('cust1', 'DPOOL', '12:00', 'C4');
+INSERT INTO reservations VALUES ('cust1', 'FSOG', '18:00', 'D3');
+INSERT INTO reservations VALUES ('cust1', 'KGLVE', '14:10', 'D3');
 
 commit;

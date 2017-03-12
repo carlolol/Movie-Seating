@@ -120,7 +120,7 @@ public class AdminMenuUI extends JPanel
 			else if(action.equals("Time"))
 				systemUI.showMovieTimeManagement();
 			else if(action.equals("Reserve"))
-				systemUI.showSeat();
+				systemUI.showMovieSelection();
 //			else if(action.equals("Analysis"))
 //				systemUI.showAnalysis();
 			else

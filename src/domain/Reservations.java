@@ -1,29 +1,22 @@
 package domain;
 
+import java.sql.Time;
+
 public class Reservations 
 {
-	private String name;
-	private String titleId;
+	private String customerId;
+	private String movieId;
+	private Time time;
 	private String seatNo;
-	
-	public String getName() 
+
+	public String getMovieId() 
 	{
-		return name;
-	}
-	
-	public void setName(String name) 
-	{
-		this.name = name;
+		return movieId;
 	}
 
-	public String getTitleId() 
+	public void setMovieId(String movieId) 
 	{
-		return titleId;
-	}
-
-	public void setTitleId(String titleId) 
-	{
-		this.titleId = titleId;
+		this.movieId = movieId;
 	}
 
 	public String getSeatNo() 
@@ -34,6 +27,26 @@ public class Reservations
 	public void setSeatNo(String seatNo) 
 	{
 		this.seatNo = seatNo;
+	}
+
+	public String getCustomerId() 
+	{
+		return customerId;
+	}
+
+	public void setCustomerId(String customerId) 
+	{
+		this.customerId = customerId;
+	}
+
+	public Time getTime() 
+	{
+		return time;
+	}
+
+	public void setTime(Time time) 
+	{
+		this.time = time;
 	}
 
 }
