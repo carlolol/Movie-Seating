@@ -30,7 +30,6 @@ public class SystemUI extends JFrame
 	private AdminMenuUI adminMenuUI;
 	private MovieSelectionUI movieSelectionUI;
 	private MovieManagementUI movieManagementUI;
-	private MovieTimeManagementUI movieTimeManagementUI;
 	private ProfileManagementUI profileManagementUI;
 	
 	private ImageIcon img;
@@ -43,7 +42,6 @@ public class SystemUI extends JFrame
 		
 		userDAO = new UserDAO(connection);
 		movieDAO = new MovieDAO(connection);
-		
 		
 		img = new ImageIcon("");
 		setIconImage(img.getImage());
@@ -73,9 +71,6 @@ public class SystemUI extends JFrame
 		
 		movieManagementUI = new MovieManagementUI(this);
 		container.add(movieManagementUI, "Movie Management");
-		
-		movieTimeManagementUI = new MovieTimeManagementUI(this);
-		container.add(movieTimeManagementUI, "Movie Time Management");
 		
 		profileManagementUI = new ProfileManagementUI(this);
 		container.add(profileManagementUI, "Profile Management");
@@ -122,7 +117,7 @@ public class SystemUI extends JFrame
 	
 	public void showAdminMenu()
 	{
-		setSize(290, 235);
+		setSize(290, 195);
 		setLocationRelativeTo(null);
 		card.show(container, "Admin Menu");
 		repaint();
@@ -133,26 +128,19 @@ public class SystemUI extends JFrame
 		setSize(365, 190);
 		setLocationRelativeTo(null);
 		card.show(container, "Movie Selection");
-		movieSelectionUI.updateComboBoxes();
+		movieSelectionUI.restartUI();
 		repaint();
 	}
 	
 	public void showMovieManagement()
 	{
-		setSize(490, 330);
+		setSize(490, 280);
 		setLocationRelativeTo(null);
 		card.show(container, "Movie Management");
+		movieManagementUI.restartUI();
 		repaint();
 	}
-	
-	public void showMovieTimeManagement()
-	{
-		setSize(485, 275);
-		setLocationRelativeTo(null);
-		card.show(container, "Movie Time Management");
-		repaint();
-	}
-	
+
 	public void showProfileManagement()
 	{
 		setSize(455, 240);

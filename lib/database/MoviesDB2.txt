@@ -34,9 +34,9 @@ create table movie
 create table showtime
 (
   movieId varchar(5),
-  hallNo integer,
+  hallNo integer not null,
   time varchar(5) not null,
-  constraint showtime_PK Primary Key(time),
+  primary key(hallNo, time),
   constraint showtime_movieId_FK Foreign Key(movieId) references movie
 );
 
@@ -59,10 +59,11 @@ create table reservations
   movieId varchar(5) not null,
   time varchar(5) not null,
   seatNo varchar(3) not null,
+  hallNo integer,
   primary key(movieId, time, seatNo),
   constraint reservations_customerId_FK Foreign Key(customerId) references customer,
   constraint reservations_movieId_FK Foreign Key(movieId) references movie,
-  constraint reservations_showtime_FK Foreign Key(time) references showtime
+  constraint reservations_hallNo_FK Foreign Key(hallNo, time) references showtime
 );
 
 INSERT INTO admin VALUES ('admin', 'Gabe Newell', 'admin', 'CEO');
@@ -89,8 +90,8 @@ INSERT INTO customer VALUES ('cust3', 'Mia Khalifa', 'cust3', 24, 'F', 'Entertai
 INSERT INTO customer VALUES ('cust4', 'Mini Ladd', 'cust4', 15, 'M', 'Teacher');
 INSERT INTO customer VALUES ('cust5', 'Ken Lee', 'cust5', 19, 'M', 'Singer');
 
-INSERT INTO reservations VALUES ('cust1', 'DPOOL', '12:00', 'C4');
-INSERT INTO reservations VALUES ('cust1', 'FSOG', '18:00', 'D3');
-INSERT INTO reservations VALUES ('cust1', 'KGLVE', '14:10', 'D3');
+INSERT INTO reservations VALUES ('cust1', 'DPOOL', '12:00', 'C2', null);
+INSERT INTO reservations VALUES ('cust1', 'FSOG', '18:00', 'D3', null);
+INSERT INTO reservations VALUES ('cust1', 'KGLVE', '14:10', 'D3', null);
 
 commit;

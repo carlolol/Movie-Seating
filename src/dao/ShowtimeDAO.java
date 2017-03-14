@@ -59,6 +59,28 @@ public class ShowtimeDAO
 		}
 	}
 	
+	public void addShowtime(List<String> formList)
+	{
+		try
+		{
+			PreparedStatement s = null;
+			String query;
+
+			query = "INSERT INTO showtime VALUES(?, ?, ?)";
+
+			s = connection.prepareStatement(query);
+			s.setString(1, formList.get(0));
+			s.setInt(2, Integer.parseInt(formList.get(1)));
+			s.setString(3, formList.get(2));
+
+			s.executeUpdate();
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	public List<Showtime> getShowtime()
 	{
 		return showtimeList;

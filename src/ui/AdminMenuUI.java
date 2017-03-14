@@ -24,7 +24,7 @@ public class AdminMenuUI extends JPanel
 	private static final long serialVersionUID = 1L;
 	private JPanel centerP;
 	private JLabel bgL;
-	private JButton moviesB, movieTimeB, signoutB, reserveB, analysisB;
+	private JButton moviesB, signoutB, reserveB, analysisB;
 	private SystemUI systemUI;
 	private MenuHandler menuHandler;
 	
@@ -51,23 +51,13 @@ public class AdminMenuUI extends JPanel
 		moviesB.addActionListener(menuHandler);
 		centerP.add(moviesB);
 		
-		movieTimeB = new JButton("Manage Movie Times");
-		movieTimeB.setActionCommand("Time");
-		movieTimeB.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		movieTimeB.setOpaque(false);
-		movieTimeB.setForeground(Color.BLUE);
-		movieTimeB.setContentAreaFilled(false);
-		movieTimeB.setBounds(60, 50, 160, 30);
-		movieTimeB.addActionListener(menuHandler);
-		centerP.add(movieTimeB);
-		
 		reserveB = new JButton("Reserve a Movie Ticket");
 		reserveB.setActionCommand("Reserve");
 		reserveB.setOpaque(false);
 		reserveB.setForeground(Color.BLUE);
 		reserveB.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		reserveB.setContentAreaFilled(false);
-		reserveB.setBounds(60, 90, 160, 30);
+		reserveB.setBounds(60, 51, 160, 30);
 		reserveB.addActionListener(menuHandler);
 		centerP.add(reserveB);
 		
@@ -76,7 +66,7 @@ public class AdminMenuUI extends JPanel
 		analysisB.setForeground(Color.BLUE);
 		analysisB.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		analysisB.setContentAreaFilled(false);
-		analysisB.setBounds(60, 130, 160, 30);
+		analysisB.setBounds(60, 91, 160, 30);
 		centerP.add(analysisB);
 		
 		signoutB = new JButton("Sign Out");
@@ -84,7 +74,7 @@ public class AdminMenuUI extends JPanel
 		signoutB.setForeground(Color.BLUE);
 		signoutB.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		signoutB.setContentAreaFilled(false);
-		signoutB.setBounds(105, 170, 75, 25);
+		signoutB.setBounds(105, 131, 75, 25);
 		signoutB.addActionListener(menuHandler);
 		centerP.add(signoutB);
 
@@ -95,7 +85,6 @@ public class AdminMenuUI extends JPanel
 //		usersB.setContentAreaFilled(false);
 //		usersB.setBounds(62, 179, 200, 45);
 //		centerP.add(usersB);
-
 		
 		bgL.setBounds(0,-80,500,500);
 		
@@ -117,8 +106,6 @@ public class AdminMenuUI extends JPanel
 
 			if(action.equals("Movie"))
 				systemUI.showMovieManagement();
-			else if(action.equals("Time"))
-				systemUI.showMovieTimeManagement();
 			else if(action.equals("Reserve"))
 				systemUI.showMovieSelection();
 //			else if(action.equals("Analysis"))

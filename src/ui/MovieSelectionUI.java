@@ -105,7 +105,7 @@ public class MovieSelectionUI extends JPanel
 		add(centerP);
 	}
 	
-	public void updateComboBoxes()
+	public void restartUI()
 	{
 		movieSelectCB.removeAllItems();
 		movieSelectCB.removeItemListener(itemHandler);

@@ -17,6 +17,7 @@ public class MovieDAO
 //	private Customer customer;
 	private ResultSet resultSet;
 	private Connection connection;
+	private ShowtimeDAO showtimeDAO;
 	
 	public MovieDAO(Connection connection)
 	{
@@ -25,7 +26,7 @@ public class MovieDAO
 		initializeMovieList();
 	}
 	
-	private void initializeMovieList()
+	public void initializeMovieList()
 	{
 		movieList = new ArrayList<Movie>();
 
@@ -48,7 +49,7 @@ public class MovieDAO
 				movie.setDuration(Integer.parseInt(resultSet.getString(4)));
 				movie.setRating(Double.parseDouble(resultSet.getString(5)));
 				
-				ShowtimeDAO showtimeDAO = new ShowtimeDAO(connection, resultSet.getString(1));
+				showtimeDAO = new ShowtimeDAO(connection, resultSet.getString(1));
 				movie.setShowtimeList(showtimeDAO.getShowtime());
 
 				movieList.add(movie);
@@ -60,9 +61,42 @@ public class MovieDAO
 		}
 	}
 	
+	public void addMovie(List<String> formList)
+	{
+		try
+		{
+			PreparedStatement s = null;
+			String query;
+
+			query = "INSERT INTO movie VALUES(?, ?, ?, ?, ?)";
+
+			s = connection.prepareStatement(query);
+			s.setString(1, formList.get(0));
+			s.setString(2, formList.get(1));
+			s.setString(3, formList.get(2));
+			s.setInt(4, Integer.parseInt(formList.get(3)));
+			s.setDouble(5, Double.parseDouble(formList.get(4)));
+
+			s.executeUpdate();
+
+//			moduleDA.addModule(loginUser.getUsername(), textFieldList.get(0), checkBoxList);
+
+			initializeMovieList();
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	public List<Movie> getMovieList()
 	{
 		return movieList;
+	}
+	
+	public ShowtimeDAO getShowtimeDAO()
+	{
+		return showtimeDAO;
 	}
 
 }
