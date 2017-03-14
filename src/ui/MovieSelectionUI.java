@@ -27,6 +27,7 @@ public class MovieSelectionUI extends JPanel
 	 * for selecting a movie and its 
 	 * showing time.
 	 */
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel centerP;
 	private JLabel bgL, timeL, titleL;
@@ -52,7 +53,6 @@ public class MovieSelectionUI extends JPanel
 		
 		bgL = new JLabel();
 		bgL.setIcon(new ImageIcon(""));
-//		loginB.addActionListener(loginHandler);
 
 		centerP = new JPanel();
 		centerP.setLayout(null);
@@ -146,12 +146,17 @@ public class MovieSelectionUI extends JPanel
 		public void actionPerformed(ActionEvent e)
 		{			
 			String action = e.getActionCommand();
-
+			
 			if(action.equals("Reserve"))
 				systemUI.showReservations(movieSelectCB.getSelectedItem().toString(), movieId, 
 						timeCB.getSelectedItem().toString());
 			else
-				systemUI.showCustomerMenu();
+			{
+				if(systemUI.isAdmin())
+					systemUI.showAdminMenu();
+				else
+					systemUI.showCustomerMenu();
+			}
 
 		}
 	}

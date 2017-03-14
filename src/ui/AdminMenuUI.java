@@ -77,21 +77,10 @@ public class AdminMenuUI extends JPanel
 		signoutB.setBounds(105, 131, 75, 25);
 		signoutB.addActionListener(menuHandler);
 		centerP.add(signoutB);
-
-//		usersB = new JButton("Edit Users");
-//		usersB.setOpaque(false);
-//		usersB.setForeground(Color.BLUE);
-//		usersB.setFont(new Font("Tahoma", Font.PLAIN, 16));
-//		usersB.setContentAreaFilled(false);
-//		usersB.setBounds(62, 179, 200, 45);
-//		centerP.add(usersB);
 		
 		bgL.setBounds(0,-80,500,500);
 		
 		centerP.add(bgL);
-
-		//printScreenB.addActionListener(loginHandler);
-		//companyB.addActionListener(loginHandler);
 		
 		validate();
 		

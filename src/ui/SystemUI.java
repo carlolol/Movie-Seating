@@ -35,6 +35,7 @@ public class SystemUI extends JFrame
 	private ImageIcon img;
 	
 	private Connection connection;
+	private boolean admin;
 	
 	public SystemUI()
 	{	
@@ -198,6 +199,16 @@ public class SystemUI extends JFrame
 	public void setMovieDAO(MovieDAO movieDAO) 
 	{
 		this.movieDAO = movieDAO;
+	}
+	
+	public boolean isAdmin() 
+	{
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) 
+	{
+		this.admin = admin;
 	}
 	
 	private Connection setupConnection()

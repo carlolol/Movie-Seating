@@ -16,6 +16,7 @@ public class ReservationsUI extends JPanel
 	 * movie tickets and seat will take
 	 * place.
 	 */
+	
 	private static final long serialVersionUID = 1L;
 
     private SystemUI systemUI;
@@ -261,9 +262,19 @@ public class ReservationsUI extends JPanel
 			if(action.equals("Confirm"))
 			{
 				checkChanges();
-				systemUI.getReservationsDAO().addReservations(
-						systemUI.getLoginCustomer().getCustomerId(), movieId, time, seatList);
-				systemUI.showCustomerMenu();
+				
+				if(systemUI.isAdmin())
+				{
+					systemUI.getReservationsDAO().addReservations(
+							null, movieId, time, seatList);
+					systemUI.showAdminMenu();
+				}
+				else
+				{
+					systemUI.getReservationsDAO().addReservations(
+							systemUI.getLoginCustomer().getCustomerId(), movieId, time, seatList);
+					systemUI.showCustomerMenu();
+				}
 				
 			}
 			else

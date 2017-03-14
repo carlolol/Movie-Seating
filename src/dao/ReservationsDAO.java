@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,13 +76,18 @@ public class ReservationsDAO
 				PreparedStatement s = null;
 				String query;
 	
-				query = "INSERT INTO reservations VALUES(?, ?, ?, ?)";
+				query = "INSERT INTO reservations VALUES(?, ?, ?, ?, ?)";
 	
 				s = connection.prepareStatement(query);
-				s.setString(1, customerId);
+				
+				if(customerId == null)
+					s.setNull(1, Types.VARCHAR);
+				else
+					s.setString(1, customerId);
 				s.setString(2, movieId);
 				s.setString(3, time);
 				s.setString(4, seat);
+				s.setNull(5, Types.INTEGER);
 	
 				s.executeUpdate();
 	

@@ -166,9 +166,15 @@ public class LoginUI extends JPanel
 			if(action.equals("Login") && !usernameTF.getText().isEmpty() && !passwordPF.getText().isEmpty())
 			{
 				if(usernameTF.getText().contains("admin"))
+				{
 					validateLoginAdmin();
+					systemUI.setAdmin(true);
+				}
 				else
+				{
 					validateLoginCustomer();
+					systemUI.setAdmin(false);
+				}
 			}
 			else if(action.equals("Register"))
 			{
