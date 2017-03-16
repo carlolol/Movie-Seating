@@ -8,6 +8,7 @@ public class Reservations
 	private String movieId;
 	private Time time;
 	private String seatNo;
+	private int hallNo;
 
 	public String getMovieId() 
 	{
@@ -47,6 +48,16 @@ public class Reservations
 	public void setTime(Time time) 
 	{
 		this.time = time;
+	}
+
+	public int getHallNo() 
+	{
+		return hallNo;
+	}
+
+	public void setHallNo(int hallNo) 
+	{
+		this.hallNo = hallNo;
 	}
 
 }

@@ -67,7 +67,7 @@ public class AdminMenuUI extends JPanel
 		analysisB.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		analysisB.setContentAreaFilled(false);
 		analysisB.setBounds(60, 91, 160, 30);
-		centerP.add(analysisB);
+//		centerP.add(analysisB);
 		
 		signoutB = new JButton("Sign Out");
 		signoutB.setOpaque(false);

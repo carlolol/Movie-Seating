@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="receipt" language="groovy" pageWidth="400" pageHeight="550" columnWidth="360" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c7bbf027-e755-4115-895d-79feca6a1fc9">
+	<property name="ireport.zoom" value="1.464100000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="param2" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="param3" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="param4" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * FROM receiptV
+WHERE customerId IS NULL AND movieId=$P{param2} AND hallNo=$P{param3} AND time=$P{param4}
+ORDER BY 1, 3]]>
+	</queryString>
+	<field name="CUSTOMERID" class="java.lang.String"/>
+	<field name="NAME" class="java.lang.String"/>
+	<field name="MOVIEID" class="java.lang.String"/>
+	<field name="TITLE" class="java.lang.String"/>
+	<field name="SEATNO" class="java.lang.String"/>
+	<field name="HALLNO" class="java.lang.Integer"/>
+	<field name="TIME" class="java.lang.String"/>
+	<detail>
+		<band height="460" splitType="Stretch">
+			<staticText>
+				<reportElement x="8" y="249" width="68" height="20" uuid="beffd062-bd92-43e2-922d-4eed14504da3"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="16"/>
+				</textElement>
+				<text><![CDATA[CINEMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="282" width="96" height="20" uuid="4ab10b59-9fb1-4fdc-9bf8-8526612b79cd"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Date Purchased:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="310" width="123" height="20" uuid="b4e9248a-c154-4e35-aa78-4cefd0ced6df"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="16"/>
+				</textElement>
+				<text><![CDATA[Price: P450.00]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="108" y="282" width="192" height="20" uuid="649fcd7a-9271-44e5-b878-de78d3b01a8b"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="8" y="224" width="238" height="20" uuid="bafac509-3445-47fe-a0f0-eb7242513f12"/>
+				<textElement>
+					<font fontName="Arial" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TITLE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="257" y="169" width="73" height="20" uuid="402f914d-569a-49d8-a184-6ee4383e5f7f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="16"/>
+				</textElement>
+				<text><![CDATA[Seat No.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="247" y="117" width="94" height="50" uuid="381f54ec-8764-48c2-ac27-2c9b6104d348"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="247" y="117" width="94" height="50" uuid="709774dc-7c1c-42e5-bdc6-4b6f7dc8bc4c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="36" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SEATNO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="83" y="249" width="23" height="20" uuid="2617c906-3f4a-4ef5-bb5e-8055a08f1cb5"/>
+				<textElement>
+					<font fontName="Arial" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{HALLNO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="108" y="249" width="23" height="20" uuid="5e0f0856-8011-49c4-bc47-bd8fc0c3cfc3"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="16"/>
+				</textElement>
+				<text><![CDATA[@]]></text>
+			</staticText>
+			<textField pattern="">
+				<reportElement x="131" y="249" width="69" height="20" uuid="5dfbb1b1-9ccf-420e-9b76-c14ad6551248"/>
+				<textElement>
+					<font fontName="Arial" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TIME}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="8" y="19" width="347" height="82" uuid="1eb45193-bea9-4f2e-a985-e84fec28eb00"/>
+				<imageExpression><![CDATA["C:\\Users\\clgaruta\\Downloads\\Logomakr_2Aq9D5\\Logomakr_2Aq9D5.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+</jasperReport>

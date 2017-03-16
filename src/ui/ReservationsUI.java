@@ -32,7 +32,8 @@ public class ReservationsUI extends JPanel
     private ReservationsHandler reservationsHandler;
     
     private List<String> seatList;
-    private String movieId, time;
+    private String movieId, time, hallNo;
+    private JLabel hallNoL;
     
     public ReservationsUI(SystemUI systemUI) 
     {
@@ -184,13 +185,18 @@ public class ReservationsUI extends JPanel
         
         movieL = new JLabel();
         movieL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        movieL.setBounds(30, 36, 830, 20);
+        movieL.setBounds(30, 35, 830, 20);
         centerP.add(movieL);
         
         timeL = new JLabel();
         timeL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        timeL.setBounds(30, 67, 330, 20);
+        timeL.setBounds(30, 60, 330, 20);
         centerP.add(timeL);
+		
+		hallNoL = new JLabel();
+		hallNoL.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		hallNoL.setBounds(30, 85, 330, 20);
+		centerP.add(hallNoL);
         
 		centerP.add(screenL);
 		
@@ -266,13 +272,22 @@ public class ReservationsUI extends JPanel
 				if(systemUI.isAdmin())
 				{
 					systemUI.getReservationsDAO().addReservations(
-							null, movieId, time, seatList);
+							null, movieId, time, seatList, hallNo);
+					systemUI.getReportsDAO().displayReceiptAdmin("receiptAdmin", movieId, hallNo, time);
+					JOptionPane.showMessageDialog(null,	"Please wait and print your Receipt.",
+							"Receipt", JOptionPane.INFORMATION_MESSAGE);
+					
 					systemUI.showAdminMenu();
 				}
 				else
 				{
 					systemUI.getReservationsDAO().addReservations(
-							systemUI.getLoginCustomer().getCustomerId(), movieId, time, seatList);
+							systemUI.getLoginCustomer().getCustomerId(), movieId, time, seatList, hallNo);
+					systemUI.getReportsDAO().displayReceipt("receipt" + systemUI.getLoginCustomer().getCustomerId()
+							, systemUI.getLoginCustomer().getCustomerId(), movieId, hallNo, time);
+					JOptionPane.showMessageDialog(null,	"Please wait and print your Receipt.",
+							"Receipt", JOptionPane.INFORMATION_MESSAGE);
+					
 					systemUI.showCustomerMenu();
 				}
 				
@@ -282,16 +297,19 @@ public class ReservationsUI extends JPanel
 		}
 	}
     
-    public void setupUI(String movieId, String movieTitle, String time)
+    public void setupUI(String movieId, String movieTitle, String time, String hallNo)
     {
     	this.movieId = movieId;
     	this.time = time;
+    	this.hallNo = hallNo;
+    	
     	confirmB.setEnabled(false);
     	
     	seatList = new ArrayList<String>();
     	
     	movieL.setText("Movie Title: " + movieTitle);
     	timeL.setText("Time: " + time);
+    	hallNoL.setText("Hall no: " + hallNo);
     	
     	resetToggleButtons();
     	checkListToggle();

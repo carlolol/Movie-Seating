@@ -13,5 +13,15 @@
 	<classpathentry kind="lib" path="C:/Program Files (x86)/IBM/SQLLIB/java/db2umplugin.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files (x86)/IBM/SQLLIB/java/sqlj.zip"/>
 	<classpathentry kind="lib" path="C:/Program Files (x86)/IBM/SQLLIB/java/sqlj4.zip"/>
+	<classpathentry kind="lib" path="C:/Program Files/iReport-5.6.0/ireport/modules/com-jaspersoft-ireport.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/iReport-5.6.0/ireport/modules/com-jaspersoft-ireport-addons.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/iReport-5.6.0/ireport/modules/com-jaspersoft-ireport-components.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/iReport-5.6.0/ireport/modules/com-jaspersoft-ireport-designer-standalone.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/iReport-5.6.0/ireport/modules/com-jaspersoft-ireport-hadoop-hive.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/iReport-5.6.0/ireport/modules/com-jaspersoft-ireport-heartbeat.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/iReport-5.6.0/ireport/modules/com-jaspersoft-ireport-jasperserver.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/iReport-5.6.0/ireport/modules/com-jaspersoft-ireport-mongodb.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/iReport-5.6.0/ireport/modules/com-jaspersoft-ireport-samples.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/iReport-5.6.0/ireport/modules/com-jaspersoft-jrx.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

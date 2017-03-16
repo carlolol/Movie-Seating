@@ -21,6 +21,8 @@ public class SystemUI extends JFrame
 	private ReservationsDAO reservationsDAO;
 	private ShowtimeDAO showtimeDAO;
 	private UserDAO userDAO;
+	private ReportsDAO reportsDAO;
+	
 	private Customer loginCustomer;
 	
 	private ReservationsUI reservationsUI;
@@ -43,6 +45,7 @@ public class SystemUI extends JFrame
 		
 		userDAO = new UserDAO(connection);
 		movieDAO = new MovieDAO(connection);
+		reportsDAO = new ReportsDAO(connection);
 		
 		img = new ImageIcon("");
 		setIconImage(img.getImage());
@@ -82,13 +85,13 @@ public class SystemUI extends JFrame
 		setVisible(true);
 	}
 	
-	public void showReservations(String movieTitle, String movieId, String time)
+	public void showReservations(String movieTitle, String movieId, String time, String hallNo)
 	{
 		setSize(900, 400);
 		setLocationRelativeTo(null);
 		card.show(container, "Reservations");
-		reservationsDAO = new ReservationsDAO(connection, movieId, time);
-		reservationsUI.setupUI(movieId, movieTitle, time);
+		reservationsDAO = new ReservationsDAO(connection, movieId, time, hallNo);
+		reservationsUI.setupUI(movieId, movieTitle, time, hallNo);
 		repaint();
 	}
 	
@@ -199,6 +202,16 @@ public class SystemUI extends JFrame
 	public void setMovieDAO(MovieDAO movieDAO) 
 	{
 		this.movieDAO = movieDAO;
+	}
+	
+	public ReportsDAO getReportsDAO() 
+	{
+		return reportsDAO;
+	}
+
+	public void setReportsDAO(ReportsDAO reportsDAO) 
+	{
+		this.reportsDAO = reportsDAO;
 	}
 	
 	public boolean isAdmin() 

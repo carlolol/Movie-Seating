@@ -66,14 +66,14 @@ public class MovieSelectionUI extends JPanel
 		movieSelectCB.setBounds(46, 36, 265, 25);
 		centerP.add(movieSelectCB);
 		
-		timeL = new JLabel("Time:");
+		timeL = new JLabel("Time and Hall:");
 		timeL.setHorizontalAlignment(SwingConstants.RIGHT);
 		timeL.setForeground(Color.BLUE);
-		timeL.setBounds(22, 77, 74, 14);
+		timeL.setBounds(46, 77, 102, 14);
 		centerP.add(timeL);
 		
 		timeCB = new JComboBox<String>();
-		timeCB.setBounds(106, 72, 144, 25);
+		timeCB.setBounds(158, 72, 153, 25);
 		centerP.add(timeCB);
 		
 		reserveB = new JButton("Reserve a Ticket");
@@ -121,7 +121,6 @@ public class MovieSelectionUI extends JPanel
 		for(Movie movie : movieList)
 		{
 			timeCB.removeAllItems();
-
 			
 			for(Movie movie2 : movieList)
 				if(movie2.getTitle().equals(movieSelectCB.getSelectedItem().toString()))
@@ -131,14 +130,14 @@ public class MovieSelectionUI extends JPanel
 			{
 				for(Showtime showtime : movie.getShowtimeList())
 				{
-					timeCB.addItem(showtime.getTime().toString().substring(0, 5));
+					timeCB.addItem(showtime.getTime().toString().substring(0, 5) 
+							+ " @ Cinema " + showtime.getHallNo());
 					timeCB.setSelectedIndex(0);
 				}
 				break;
 			}
 		}
 		
-		movieSelectCB.addItemListener(itemHandler);
 	}
 	
 	private class SelectionHandler implements ActionListener
@@ -149,7 +148,8 @@ public class MovieSelectionUI extends JPanel
 			
 			if(action.equals("Reserve"))
 				systemUI.showReservations(movieSelectCB.getSelectedItem().toString(), movieId, 
-						timeCB.getSelectedItem().toString());
+						timeCB.getSelectedItem().toString().substring(0, 5), 
+						timeCB.getSelectedItem().toString().substring(15).trim());
 			else
 			{
 				if(systemUI.isAdmin())
@@ -179,7 +179,8 @@ public class MovieSelectionUI extends JPanel
 				{
 					for(Showtime showtime : movie.getShowtimeList())
 					{
-						timeCB.addItem(showtime.getTime().toString().substring(0, 5));
+						timeCB.addItem(showtime.getTime().toString().substring(0, 5) 
+								+ " @ Cinema " + showtime.getHallNo());
 						timeCB.setSelectedIndex(0);
 					}
 					break;
@@ -187,4 +188,5 @@ public class MovieSelectionUI extends JPanel
 			}
 		}
 	}
+	
 }

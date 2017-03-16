@@ -18,12 +18,14 @@ public class ReservationsDAO
 	private Connection connection;
 	private String movieId;
 	private String time;
+	private String hallNo;
 	
-	public ReservationsDAO(Connection connection, String movieId, String time)
+	public ReservationsDAO(Connection connection, String movieId, String time, String hallNo)
 	{
 		this.connection = connection;
 		this.movieId = movieId;
 		this.time = time;
+		this.hallNo = hallNo;
 		
 		initializeReservationsList();
 	}
@@ -36,11 +38,12 @@ public class ReservationsDAO
 		{
 			PreparedStatement s = null;
 			String query;
-			query = "SELECT * FROM reservations WHERE movieId = ? AND time = ?";
+			query = "SELECT * FROM reservations WHERE movieId = ? AND time = ? AND hallNo = ?";
 
 			s = connection.prepareStatement(query);
 			s.setString(1, movieId);
 			s.setString(2, time);
+			s.setString(3, hallNo);
 			
 			resultSet = s.executeQuery();
 
@@ -67,7 +70,7 @@ public class ReservationsDAO
 		return reservationsList;
 	}
 	
-	public void addReservations(String customerId, String movieId, String time, List<String> seatList)
+	public void addReservations(String customerId, String movieId, String time, List<String> seatList, String hallNo)
 	{
 		try
 		{
@@ -87,7 +90,7 @@ public class ReservationsDAO
 				s.setString(2, movieId);
 				s.setString(3, time);
 				s.setString(4, seat);
-				s.setNull(5, Types.INTEGER);
+				s.setInt(5, Integer.parseInt(hallNo));
 	
 				s.executeUpdate();
 	
