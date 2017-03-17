@@ -52,7 +52,7 @@ public class MovieSelectionUI extends JPanel
 		this.systemUI = systemUI;
 		
 		bgL = new JLabel();
-		bgL.setIcon(new ImageIcon(""));
+		bgL.setIcon(new ImageIcon("../Movie Seating/lib/images/bg2.jpg"));
 
 		centerP = new JPanel();
 		centerP.setLayout(null);

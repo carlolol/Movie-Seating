@@ -39,7 +39,7 @@ public class AdminMenuUI extends JPanel
 		centerP.setLayout(null);
 		
 		bgL = new JLabel();
-		bgL.setIcon(new ImageIcon(""));
+		bgL.setIcon(new ImageIcon("../Movie Seating/lib/images/bg2.jpg"));
 		
 		moviesB = new JButton("Manage Movies");
 		moviesB.setActionCommand("Movie");
@@ -67,7 +67,8 @@ public class AdminMenuUI extends JPanel
 		analysisB.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		analysisB.setContentAreaFilled(false);
 		analysisB.setBounds(60, 91, 160, 30);
-//		centerP.add(analysisB);
+		analysisB.addActionListener(menuHandler);
+		centerP.add(analysisB);
 		
 		signoutB = new JButton("Sign Out");
 		signoutB.setOpaque(false);
@@ -97,8 +98,8 @@ public class AdminMenuUI extends JPanel
 				systemUI.showMovieManagement();
 			else if(action.equals("Reserve"))
 				systemUI.showMovieSelection();
-//			else if(action.equals("Analysis"))
-//				systemUI.showAnalysis();
+			else if(action.equals("Analysis"))
+				systemUI.getReportsDAO().displayAnalysis();
 			else
 				systemUI.showLogin();
 		}

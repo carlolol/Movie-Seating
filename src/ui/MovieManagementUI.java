@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -73,6 +74,7 @@ public class MovieManagementUI extends JPanel
 		centerP.setLayout(null);
 		
 		bgL = new JLabel();
+		bgL.setIcon(new ImageIcon("../Movie Seating/lib/images/bg2.jpg"));
 		
 		addMovieB = new JButton("Add Movie");
 		addMovieB.setContentAreaFilled(false);

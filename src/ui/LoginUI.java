@@ -26,12 +26,15 @@ public class LoginUI extends JPanel
 	
 	private SystemUI systemUI;
 	private LoginHandler loginHandler;
+	private LoginAdapter loginAdapter;
 	private UserDAO userDAO;
+	private JLabel titleBg;
 	
 	public LoginUI(SystemUI systemUI)
 	{
 		setLayout(new GridLayout(1, 1));
 		loginHandler = new LoginHandler();
+		loginAdapter = new LoginAdapter();
 		userDAO = systemUI.getUserDAO();
 		
 		this.systemUI = systemUI;
@@ -40,7 +43,7 @@ public class LoginUI extends JPanel
 		passwordL = new JLabel("Password:");
 		
 		bgL = new JLabel();
-		bgL.setIcon(new ImageIcon(""));
+		bgL.setIcon(new ImageIcon("../Movie Seating/lib/images/bg.jpg"));
 		
 		usernameTF = new JTextField(10);
 		usernameTF.getCursor();
@@ -72,88 +75,61 @@ public class LoginUI extends JPanel
 		registerB.addActionListener(loginHandler);
 		
 		centerP.add(registerB);
+		
+		titleBg = new JLabel();
+		titleBg.setIcon(new ImageIcon("../Movie Seating/lib/images/logoSmall.png"));
+
+		titleBg.setBounds(0, 45, 400, 110);
+		
+		centerP.add(titleBg);
 		centerP.add(bgL);
 		
-		bgL.setBounds(0,-80,500,500);
+		bgL.setBounds(0,0,400,400);
 		usernameTF.setBounds(75,170,250,25); 
 		passwordPF.setBounds(75,210,250,25); 
 		loginB.setBounds(171,266,70,25); 
 		usernameL.setBounds(75,150,80,25);
 		passwordL.setBounds(75,190,80,25);
 
-		
 		validate();
 		
 		add(centerP);
 		
-//		usernameTF.addKeyListener(new KeyAdapter()
-//		{
-//			public void keyPressed(KeyEvent e)
-//			{
-//				int key = e.getKeyCode();
-//				
-//				if(key==KeyEvent.VK_ENTER && !getUsernameTF().getText().isEmpty() && !getPasswordPF().getText().isEmpty())
-//				{
-//					validateUser();
-//					usernameTF.setText("");
-//					passwordPF.setText("");
-//				}
-//				
-//				else if(key==KeyEvent.VK_ENTER && getUsernameTF().getText().isEmpty() && getPasswordPF().getText().isEmpty())
-//				{
-//					JOptionPane.showMessageDialog(null,	"Valid account is required. Check your username and password.",
-//							"Login Error", JOptionPane.ERROR_MESSAGE);
-//					usernameTF.setText("");
-//					passwordPF.setText("");
-//				}	
-//			}
-//		});
-//		
-//		passwordPF.addKeyListener(new KeyAdapter()
-//		{
-//			public void keyPressed(KeyEvent e)
-//			{
-//				int key = e.getKeyCode();
-//				
-//				if(key==KeyEvent.VK_ENTER && !getUsernameTF().getText().isEmpty() && !getPasswordPF().getText().isEmpty())
-//				{
-//					validateUser();
-//					usernameTF.setText("");
-//					passwordPF.setText("");
-//				}
-//				
-//				else if(key==KeyEvent.VK_ENTER && getUsernameTF().getText().isEmpty() && getPasswordPF().getText().isEmpty())
-//				{
-//					JOptionPane.showMessageDialog(null,	"Valid account is required. Check your username and password.",
-//							"Login Error", JOptionPane.ERROR_MESSAGE);
-//					usernameTF.setText("");
-//					passwordPF.setText("");
-//				}	
-//			}
-//		});
-//		
-//		loginB.addKeyListener(new KeyAdapter()
-//		{
-//			public void keyPressed(KeyEvent e)
-//			{
-//				int key = e.getKeyCode();
-//				
-//				if(key==KeyEvent.VK_ENTER && !getUsernameTF().getText().isEmpty() && !getPasswordPF().getText().isEmpty())
-//				{
-//					validateUser();
-//					usernameTF.setText("");
-//					passwordPF.setText("");
-//				}
-//				
-//				else if(key==KeyEvent.VK_ENTER && getUsernameTF().getText().isEmpty() && getPasswordPF().getText().isEmpty())
-//				{
-//					JOptionPane.showMessageDialog(null,	"Valid account is required. Check your username and password.",
-//							"Login Error", JOptionPane.ERROR_MESSAGE);
-//					usernameTF.setText("");
-//					passwordPF.setText("");
-//				}	
-//			}
-//		});
+		usernameTF.addKeyListener(loginAdapter);
+		passwordPF.addKeyListener(loginAdapter);
+		loginB.addKeyListener(loginAdapter);
+	}
+	
+	private class LoginAdapter extends KeyAdapter
+	{
+		@SuppressWarnings("deprecation")
+		public void keyPressed(KeyEvent e)
+		{
+			int key = e.getKeyCode();
+			if(key==KeyEvent.VK_ENTER && !usernameTF.getText().isEmpty() && !passwordPF.getText().isEmpty())
+			{
+				if(usernameTF.getText().contains("admin"))
+				{
+					validateLoginAdmin();
+					systemUI.setAdmin(true);
+				}
+				else
+				{
+					validateLoginCustomer();
+					systemUI.setAdmin(false);
+				}
+				
+				usernameTF.setText("");
+				passwordPF.setText("");
+			}
+			else if(key==KeyEvent.VK_ENTER && (usernameTF.getText().isEmpty() || passwordPF.getText().isEmpty()))
+			{
+				JOptionPane.showMessageDialog(null,	"Valid account is required. Check your username and password.",
+						"Login Error", JOptionPane.ERROR_MESSAGE);
+				usernameTF.setText("");
+				passwordPF.setText("");
+			}	
+		}
 	}
 	
 	private class LoginHandler implements ActionListener

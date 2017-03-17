@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +55,7 @@ public class RegistrationUI extends JPanel
 		this.systemUI = systemUI;
 		
 		bgL = new JLabel();
-		bgL.setIcon(new ImageIcon(""));
+		bgL.setIcon(new ImageIcon("../Movie Seating/lib/images/bg2.jpg"));
 
 		centerP = new JPanel();
 		centerP.setLayout(null);
@@ -83,6 +85,29 @@ public class RegistrationUI extends JPanel
 		
 		nameTF = new JTextField();
 		nameTF.setBounds(83, 8, 357, 20);
+		nameTF.addKeyListener(new KeyAdapter(){
+			public void keyTyped(KeyEvent e)
+			{
+				
+				if(nameTF.getText().length() < 36)
+				{
+					
+				}
+				else
+					e.consume();
+				
+				char c = e.getKeyChar();
+
+				if(Character.isLetter(c) || Character.isISOControl(c) || c == ' ')
+				{
+					
+				}
+				else
+				{
+					e.consume();
+				}
+			}
+		});
 		centerP.add(nameTF);
 		nameTF.setColumns(10);
 		
@@ -96,6 +121,18 @@ public class RegistrationUI extends JPanel
 		usernameTF = new JTextField();
 		usernameTF.setColumns(10);
 		usernameTF.setBounds(83, 39, 357, 20);
+		usernameTF.addKeyListener(new KeyAdapter(){
+			public void keyTyped(KeyEvent e)
+			{
+				
+				if(usernameTF.getText().length() < 10)
+				{
+					
+				}
+				else
+					e.consume();
+			}
+		});
 		centerP.add(usernameTF);
 		
 		passwordL = new JLabel("Password:");
@@ -108,6 +145,18 @@ public class RegistrationUI extends JPanel
 		passwordTF = new JTextField();
 		passwordTF.setColumns(10);
 		passwordTF.setBounds(83, 71, 357, 20);
+		passwordTF.addKeyListener(new KeyAdapter(){
+			public void keyTyped(KeyEvent e)
+			{
+				
+				if(passwordTF.getText().length() < 18)
+				{
+					
+				}
+				else
+					e.consume();
+			}
+		});
 		centerP.add(passwordTF);
 		
 		ageL = new JLabel("Age:");
@@ -120,6 +169,30 @@ public class RegistrationUI extends JPanel
 		ageTF = new JTextField();
 		ageTF.setColumns(10);
 		ageTF.setBounds(83, 103, 115, 20);
+		ageTF.addKeyListener(new KeyAdapter(){
+			public void keyTyped(KeyEvent e)
+			{
+				char c = e.getKeyChar();
+
+				if(Character.isDigit(c) || Character.isISOControl(c))
+				{
+//					if(!ageTF.getText().trim().equals(""))
+//					{
+//						if(Integer.parseInt(ageTF.getText()) < 70)
+//						{
+//
+//						}
+//						else
+//							e.consume();
+//					}
+				}
+				else
+				{
+					e.consume();
+				}
+
+			}
+		});
 		centerP.add(ageTF);
 		
 		genderL = new JLabel("Gender:");
@@ -153,6 +226,18 @@ public class RegistrationUI extends JPanel
 		occupationTF = new JTextField();
 		occupationTF.setColumns(10);
 		occupationTF.setBounds(83, 134, 189, 20);
+		occupationTF.addKeyListener(new KeyAdapter(){
+			public void keyTyped(KeyEvent e)
+			{
+				
+				if(occupationTF.getText().length() < 18)
+				{
+					
+				}
+				else
+					e.consume();
+			}
+		});
 		centerP.add(occupationTF);
 		
 		occupationL = new JLabel("Occupation:");

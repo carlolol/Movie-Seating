@@ -59,8 +59,8 @@ create table reservations
   movieId varchar(5) not null,
   time varchar(5) not null,
   seatNo varchar(3) not null,
-  hallNo integer,
-  primary key(movieId, time, seatNo),
+  hallNo integer not null,
+  primary key(movieId, time, seatNo, hallNo),
   constraint reservations_customerId_FK Foreign Key(customerId) references customer,
   constraint reservations_movieId_FK Foreign Key(movieId) references movie,
   constraint reservations_hallNo_FK Foreign Key(hallNo, time) references showtime
@@ -90,8 +90,11 @@ INSERT INTO customer VALUES ('cust3', 'Mia Khalifa', 'cust3', 24, 'F', 'Entertai
 INSERT INTO customer VALUES ('cust4', 'Mini Ladd', 'cust4', 15, 'M', 'Teacher');
 INSERT INTO customer VALUES ('cust5', 'Ken Lee', 'cust5', 19, 'M', 'Singer');
 
-INSERT INTO reservations VALUES ('cust1', 'DPOOL', '12:00', 'C2', null);
-INSERT INTO reservations VALUES ('cust1', 'FSOG', '18:00', 'D3', null);
-INSERT INTO reservations VALUES ('cust1', 'KGLVE', '14:10', 'D3', null);
+INSERT INTO reservations VALUES ('cust1', 'DPOOL', '12:00', 'C2', 1);
+INSERT INTO reservations VALUES ('cust1', 'FSOG', '16:00', 'D3', 4);
+INSERT INTO reservations VALUES ('cust1', 'KGLVE', '14:10', 'D3', 8);
+
+CREATE VIEW receiptV AS (SELECT r.customerId, c.name, r.movieId, m.title, r.seatNo, s.hallNo, s.time FROM reservations r LEFT JOIN customer c ON c.customerId=r.customerId LEFT JOIN movie m ON r.movieId=m.movieId LEFT JOIN showtime s ON r.time=s.time AND r.hallNo=s.hallNo);
+CREATE VIEW analysisV AS (SELECT m.movieId, title, COUNT(m.title) "WATCH COUNT" FROM movie m LEFT JOIN reservations r ON m.movieId=r.movieId GROUP BY title, m.movieId);
 
 commit;

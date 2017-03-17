@@ -21,7 +21,7 @@ public class ReservationsUI extends JPanel
 
     private SystemUI systemUI;
     private JPanel centerP;
-    private JLabel screenL, movieL, timeL;
+    private JLabel screenL, movieL, timeL, bgL;
     private JButton cancelB, confirmB;
     private JToggleButton a1B, a2B, a3B, a4B, a5B, a6B, a7B, a8B, a9B, a10B,
     						b1B, b2B, b3B, b4B, b5B, b6B, b7B, b8B, b9B, b10B,
@@ -43,6 +43,9 @@ public class ReservationsUI extends JPanel
     	reservationsHandler = new ReservationsHandler();
     	green = new ImageIcon("../Movie Seating/lib/images/green.png");
     	red = new ImageIcon("../Movie Seating/lib/images/red.png");
+    	
+    	bgL = new JLabel();
+    	bgL.setIcon(new ImageIcon("../Movie Seating/lib/images/bg2.jpg"));
     	
         centerP = new JPanel();
 		centerP.setLayout(null);
@@ -254,6 +257,8 @@ public class ReservationsUI extends JPanel
         centerP.add(d8B);
         centerP.add(d9B);
         centerP.add(d10B);
+        
+        centerP.add(bgL);
 
         validate();
         add(centerP);
