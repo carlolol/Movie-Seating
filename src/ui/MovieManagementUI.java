@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -100,6 +102,20 @@ public class MovieManagementUI extends JPanel
 		titleTF = new JTextField(64);
 		movieIdTF = new JTextField(15);
 		
+		timeL = new JLabel("Time:");
+		timeL.setBounds(115, 85, 39, 25);
+		centerP.add(timeL);
+		
+		timeTF = new JTextField(15);
+		centerP.add(timeTF);
+		
+		hallL = new JLabel("Hall:");
+		hallL.setBounds(256, 85, 34, 25);
+		centerP.add(hallL);
+		
+		hallTF = new JTextField(15);
+		centerP.add(hallTF);
+		
 		centerP.add(titleL);
 		centerP.add(titleCB);
 		centerP.add(genreL);
@@ -115,7 +131,6 @@ public class MovieManagementUI extends JPanel
 		setupTable();
 		showtimeSP.setBounds(114, 85, 250, 90);
 		movieIdL.setBounds(115, 85, 50, 25);
-		movieIdTF.setBounds(175, 85, 190, 25);
 		
 		centerP.add(showtimeSP);
 		centerP.add(addMovieB);
@@ -123,33 +138,163 @@ public class MovieManagementUI extends JPanel
 		centerP.add(returnB);
 		
 		titleL.setBounds(21, 11, 34, 25);
-		titleTF.setBounds(65, 11, 404, 25);
 		titleCB.setBounds(65, 11, 404, 25);
 		genreL.setBounds(31, 49, 39, 25);
-		genreTF.setBounds(75, 49, 130, 25);
 		durationL.setBounds(215, 49, 52, 25);
-		durationTF.setBounds(277, 49, 65, 25);
 		ratingL.setBounds(352, 49, 39, 25);
-		ratingTF.setBounds(401, 49, 50, 25);
 		addMovieB.setBounds(75, 186, 100, 25);
 		addTimeB.setBounds(291, 186, 100, 25);
 		returnB.setBounds(385, 222, 80, 25);
 		
-		timeL = new JLabel("Time:");
-		timeL.setBounds(115, 85, 39, 25);
-		centerP.add(timeL);
+		movieIdTF.setBounds(175, 85, 190, 25);
+		titleTF.addKeyListener(new KeyAdapter(){
+			public void keyTyped(KeyEvent e)
+			{
+				
+				if(titleTF.getText().length() < 5)
+				{
+					
+				}
+				else
+					e.consume();
+			}
+		});
 		
-		timeTF = new JTextField(15);
+		titleTF.setBounds(65, 11, 404, 25);
+		titleTF.addKeyListener(new KeyAdapter(){
+			public void keyTyped(KeyEvent e)
+			{
+				
+				if(titleTF.getText().length() < 64)
+				{
+					
+				}
+				else
+					e.consume();
+			}
+		});
+		
+		genreTF.setBounds(75, 49, 130, 25);
+		genreTF.addKeyListener(new KeyAdapter(){
+			public void keyTyped(KeyEvent e)
+			{
+				
+				if(genreTF.getText().length() < 24)
+				{
+					
+				}
+				else
+					e.consume();
+				
+				char c = e.getKeyChar();
+
+				if(Character.isLetter(c) || Character.isISOControl(c) || c == ' ')
+				{
+					
+				}
+				else
+				{
+					e.consume();
+				}
+			}
+		});
+		
+		ratingTF.setBounds(401, 49, 50, 25);
+		ratingTF.addKeyListener(new KeyAdapter(){
+			public void keyTyped(KeyEvent e)
+			{
+				char c = e.getKeyChar();
+
+				if(Character.isDigit(c) || Character.isISOControl(c) || c == '.')
+				{
+					if(!ratingTF.getText().trim().equals(""))
+					{
+						if(Double.parseDouble(ratingTF.getText()) < 100)
+						{
+							
+						}
+						else
+						{
+							e.consume();
+							ratingTF.setText("" + 100.00);
+						}
+					}
+				}
+				else
+				{
+					e.consume();
+				}
+			}
+		});
+		
+		durationTF.setBounds(277, 49, 65, 25);
+		durationTF.addKeyListener(new KeyAdapter(){
+			public void keyTyped(KeyEvent e)
+			{
+				char c = e.getKeyChar();
+
+				if(Character.isDigit(c) || Character.isISOControl(c))
+				{
+					
+				}
+				else
+				{
+					e.consume();
+				}
+			}
+		});
+		
 		timeTF.setBounds(164, 85, 65, 25);
-		centerP.add(timeTF);
+		timeTF.addKeyListener(new KeyAdapter(){
+			public void keyTyped(KeyEvent e)
+			{
+				if(timeTF.getText().length() < 5)
+				{
+					
+				}
+				else
+					e.consume();
+				
+				char c = e.getKeyChar();
+
+				if(Character.isDigit(c) || Character.isISOControl(c) || c == ':')
+				{
+					
+				}
+				else
+				{
+					e.consume();
+				}
+			}
+		});
 		
-		hallL = new JLabel("Hall:");
-		hallL.setBounds(256, 85, 34, 25);
-		centerP.add(hallL);
-		
-		hallTF = new JTextField(15);
 		hallTF.setBounds(300, 85, 65, 25);
-		centerP.add(hallTF);
+		hallTF.addKeyListener(new KeyAdapter(){
+			public void keyTyped(KeyEvent e)
+			{
+				char c = e.getKeyChar();
+
+				if(Character.isDigit(c) || Character.isISOControl(c))
+				{
+					if(!hallTF.getText().trim().equals(""))
+					{
+						if(Integer.parseInt(hallTF.getText()) < 10)
+						{
+							
+						}
+						else
+						{
+							e.consume();
+							hallTF.setText("" + 10);
+						}
+					}
+				}
+				else
+				{
+					e.consume();
+				}
+			}
+		});
 
 		centerP.add(bgL);
 		bgL.setBounds(0,-80,500,500);

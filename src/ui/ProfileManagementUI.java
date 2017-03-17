@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,7 +77,29 @@ public class ProfileManagementUI extends JPanel
 		
 		nameTF = new JTextField();
 		nameTF.setBounds(83, 8, 357, 20);
-		nameTF.setColumns(10);
+		nameTF.addKeyListener(new KeyAdapter(){
+			public void keyTyped(KeyEvent e)
+			{
+				
+				if(nameTF.getText().length() < 36)
+				{
+					
+				}
+				else
+					e.consume();
+				
+				char c = e.getKeyChar();
+
+				if(Character.isLetter(c) || Character.isISOControl(c) || c == ' ')
+				{
+					
+				}
+				else
+				{
+					e.consume();
+				}
+			}
+		});
 		centerP.add(nameTF);
 		
 		usernameL = new JLabel("Username:");
@@ -101,6 +125,18 @@ public class ProfileManagementUI extends JPanel
 		passwordTF = new JTextField();
 		passwordTF.setColumns(10);
 		passwordTF.setBounds(83, 71, 357, 20);
+		passwordTF.addKeyListener(new KeyAdapter(){
+			public void keyTyped(KeyEvent e)
+			{
+				
+				if(passwordTF.getText().length() < 18)
+				{
+					
+				}
+				else
+					e.consume();
+			}
+		});
 		centerP.add(passwordTF);
 		
 		ageL = new JLabel("Age:");
@@ -113,6 +149,33 @@ public class ProfileManagementUI extends JPanel
 		ageTF = new JTextField();
 		ageTF.setColumns(10);
 		ageTF.setBounds(83, 103, 115, 20);
+		ageTF.addKeyListener(new KeyAdapter(){
+			public void keyTyped(KeyEvent e)
+			{
+				char c = e.getKeyChar();
+
+				if(Character.isDigit(c) || Character.isISOControl(c))
+				{
+					if(!ageTF.getText().trim().equals(""))
+					{
+						if(Integer.parseInt(ageTF.getText()) < 70)
+						{
+							
+						}
+						else
+						{
+							e.consume();
+							ageTF.setText("" + 70);
+						}
+					}
+				}
+				else
+				{
+					e.consume();
+				}
+
+			}
+		});
 		centerP.add(ageTF);
 		
 		genderL = new JLabel("Gender:");
@@ -138,6 +201,18 @@ public class ProfileManagementUI extends JPanel
 		occupationTF = new JTextField();
 		occupationTF.setColumns(10);
 		occupationTF.setBounds(83, 134, 189, 20);
+		occupationTF.addKeyListener(new KeyAdapter(){
+			public void keyTyped(KeyEvent e)
+			{
+				
+				if(occupationTF.getText().length() < 18)
+				{
+					
+				}
+				else
+					e.consume();
+			}
+		});
 		centerP.add(occupationTF);
 
 		

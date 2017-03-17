@@ -176,15 +176,19 @@ public class RegistrationUI extends JPanel
 
 				if(Character.isDigit(c) || Character.isISOControl(c))
 				{
-//					if(!ageTF.getText().trim().equals(""))
-//					{
-//						if(Integer.parseInt(ageTF.getText()) < 70)
-//						{
-//
-//						}
-//						else
-//							e.consume();
-//					}
+					if(!ageTF.getText().trim().equals(""))
+					{
+						if(Integer.parseInt(ageTF.getText()) < 70)
+						{
+							
+						}
+						else
+						{
+							e.consume();
+							ageTF.setText("" + 70);
+						}
+
+					}
 				}
 				else
 				{
