@@ -45,7 +45,7 @@ public class MovieManagementUI extends JPanel
 	private JLabel titleL, genreL, durationL, ratingL, bgL, movieIdL;
 	private JComboBox<String> titleCB;
 	private JTextField genreTF, durationTF, ratingTF, titleTF, movieIdTF;
-	private JButton addMovieB, addTimeB, returnB;
+	private JButton addMovieB, addTimeB, returnB, editB, deleteB;
 	
 	private JTable showtimeT;
 	private DefaultTableModel showtimeM;
@@ -142,16 +142,16 @@ public class MovieManagementUI extends JPanel
 		genreL.setBounds(31, 49, 39, 25);
 		durationL.setBounds(215, 49, 52, 25);
 		ratingL.setBounds(352, 49, 39, 25);
-		addMovieB.setBounds(75, 186, 100, 25);
-		addTimeB.setBounds(291, 186, 100, 25);
+		addMovieB.setBounds(25, 185, 100, 25);
+		addTimeB.setBounds(355, 185, 100, 25);
 		returnB.setBounds(385, 222, 80, 25);
 		
 		movieIdTF.setBounds(175, 85, 190, 25);
-		titleTF.addKeyListener(new KeyAdapter(){
+		movieIdTF.addKeyListener(new KeyAdapter(){
 			public void keyTyped(KeyEvent e)
 			{
 				
-				if(titleTF.getText().length() < 5)
+				if(movieIdTF.getText().length() < 5)
 				{
 					
 				}
@@ -295,6 +295,18 @@ public class MovieManagementUI extends JPanel
 				}
 			}
 		});
+		
+		editB = new JButton("Edit Movie");
+		editB.setContentAreaFilled(false);
+		editB.setBounds(135, 185, 100, 25);
+		editB.addActionListener(movieHandler);
+		centerP.add(editB);
+		
+		deleteB = new JButton("Delete");
+		deleteB.setContentAreaFilled(false);
+		deleteB.setBounds(245, 185, 100, 25);
+		deleteB.addActionListener(movieHandler);
+		centerP.add(deleteB);
 
 		centerP.add(bgL);
 		bgL.setBounds(0,-80,500,500);
@@ -318,14 +330,17 @@ public class MovieManagementUI extends JPanel
 		
 		setupTextFields();
 		toggleTextFields(false);
-		toggleEdit(false);
+		toggleAdd(false);
 		toggleForTime(false);
+		toggleEdit(false);
 		
 		setupTableData();
 	}
 	
 	private void setupTextFields()
 	{
+		movieIdTF.setText(selectedMovie.getMovieId());
+		titleTF.setText(selectedMovie.getTitle());
 		genreTF.setText(selectedMovie.getGenre());
 		durationTF.setText("" + selectedMovie.getDuration());
 		ratingTF.setText("" + selectedMovie.getRating());
@@ -350,6 +365,8 @@ public class MovieManagementUI extends JPanel
 		ratingTF.setVisible(!toggle);
 		showtimeSP.setVisible(!toggle);
 		returnB.setVisible(!toggle);
+		editB.setVisible(!toggle);
+		deleteB.setVisible(!toggle);
 
 		timeL.setVisible(toggle);
 		timeTF.setVisible(toggle);
@@ -368,7 +385,7 @@ public class MovieManagementUI extends JPanel
 		}
 	}
 	
-	private void toggleEdit(boolean toggle)
+	private void toggleAdd(boolean toggle)
 	{
 		titleTF.setVisible(toggle);
 		movieIdTF.setVisible(toggle);
@@ -376,6 +393,8 @@ public class MovieManagementUI extends JPanel
 		showtimeSP.setVisible(!toggle);
 		toggleTextFields(toggle);
 		returnB.setVisible(!toggle);
+		editB.setVisible(!toggle);
+		deleteB.setVisible(!toggle);
 		titleCB.setVisible(!toggle);
 
 		if(toggle)
@@ -390,6 +409,32 @@ public class MovieManagementUI extends JPanel
 		}
 	}
 	
+	private void toggleEdit(boolean toggle)
+	{
+		titleCB.setVisible(!toggle);
+		titleTF.setVisible(toggle);
+		titleTF.setEditable(toggle);
+		genreTF.setEditable(toggle);
+		durationTF.setEditable(toggle);
+		ratingTF.setEditable(toggle);
+		showtimeSP.setVisible(!toggle);
+		
+		editB.setVisible(!toggle);
+		deleteB.setVisible(!toggle);
+		titleCB.setVisible(!toggle);
+		
+		if(toggle)
+		{
+			addMovieB.setText("Append");
+			addTimeB.setText("Cancel");
+		}
+		else
+		{
+			addMovieB.setText("Add Movie");
+			addTimeB.setText("Add TIme");
+		}
+	}
+
 	private void clearTextFields()
 	{
 		genreTF.setText("");
@@ -425,6 +470,19 @@ public class MovieManagementUI extends JPanel
 		return formList;
 	}
 	
+	private List<String> getFormListForEdit()
+	{
+		List<String> formList = new ArrayList<String>();
+		
+		formList.add(0, titleTF.getText());
+		formList.add(1, genreTF.getText());
+		formList.add(2, durationTF.getText());
+		formList.add(3, ratingTF.getText());
+		formList.add(4, selectedMovie.getMovieId());
+		
+		return formList;
+	}
+	
 	private boolean isNothingEmpty()
 	{
 		if(movieIdTF.getText().trim().isEmpty() || titleTF.getText().trim().isEmpty()
@@ -432,7 +490,8 @@ public class MovieManagementUI extends JPanel
 				|| ratingTF.getText().trim().isEmpty())
 			return false;
 		else
-			return true;	}
+			return true;	
+	}
 	
 	@SuppressWarnings("serial")
 	private void setupTable()
@@ -493,7 +552,7 @@ public class MovieManagementUI extends JPanel
 
 			if(action.equals("Add Movie"))
 			{
-				toggleEdit(true);
+				toggleAdd(true);
 				clearTextFields();
 			}
 			else if(action.equals("Confirm") && isNothingEmpty())
@@ -501,6 +560,21 @@ public class MovieManagementUI extends JPanel
 				systemUI.getMovieDAO().addMovie(getFormListForAdd());
 				titleCB.addItem(titleTF.getText());
 				movieList = systemUI.getMovieDAO().getMovieList();
+				toggleAdd(false);
+			}
+			else if(action.equals("Edit Movie"))
+			{
+				toggleEdit(true);
+			}
+			else if(action.equals("Append") && isNothingEmpty())
+			{
+				systemUI.getMovieDAO().editMovie(getFormListForEdit());
+				movieList = systemUI.getMovieDAO().getMovieList();
+				selectedMovie = movieList.get(titleCB.getSelectedIndex());
+				titleCB.addItem(selectedMovie.getTitle());
+				titleCB.removeItemAt(titleCB.getSelectedIndex());
+				titleCB.setSelectedIndex(titleCB.getItemCount() - 1);
+
 				toggleEdit(false);
 			}
 			else if(action.equals("Add Time"))
@@ -508,7 +582,8 @@ public class MovieManagementUI extends JPanel
 				toggleForTime(true);
 				clearTextFields();
 			}
-			else if(action.equals("Add"))
+			else if(action.equals("Add") && !timeTF.getText().trim().isEmpty() 
+					&& !hallTF.getText().trim().isEmpty())
 			{
 				systemUI.getMovieDAO().getShowtimeDAO().addShowtime(getFormListForTime());
 				systemUI.getMovieDAO().initializeMovieList();
@@ -523,9 +598,18 @@ public class MovieManagementUI extends JPanel
 				toggleForTime(false);
 				repaint();
 			}
+			else if(action.equals("Delete"))
+			{
+				systemUI.getMovieDAO().deleteMovie(selectedMovie.getMovieId());
+				movieList = systemUI.getMovieDAO().getMovieList();
+				titleCB.removeItemAt(titleCB.getSelectedIndex());
+				titleCB.setSelectedIndex(0);
+				setupTextFields();
+				setupTableData();
+			}
 			else if(action.equals("Cancel"))
 			{
-				toggleEdit(false);
+				toggleAdd(false);
 				toggleForTime(false);
 				setupTextFields();
 			}

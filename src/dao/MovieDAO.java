@@ -71,7 +71,7 @@ public class MovieDAO
 			query = "INSERT INTO movie VALUES(?, ?, ?, ?, ?)";
 
 			s = connection.prepareStatement(query);
-			s.setString(1, formList.get(0));
+			s.setString(1, formList.get(0).toUpperCase());
 			s.setString(2, formList.get(1));
 			s.setString(3, formList.get(2));
 			s.setInt(4, Integer.parseInt(formList.get(3)));
@@ -81,6 +81,89 @@ public class MovieDAO
 
 //			moduleDA.addModule(loginUser.getUsername(), textFieldList.get(0), checkBoxList);
 
+			initializeMovieList();
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void editMovie(List<String> formList)
+	{
+		try
+		{
+			PreparedStatement s = null;
+			String query;
+
+//			formList.add(0, nameTF.getText());
+//			formList.add(1, passwordTF.getText());
+//			formList.add(2, ageTF.getText());
+//			formList.add(3, occupationTF.getText());
+			
+			query = "UPDATE movie SET title = ? WHERE movieId = ?";
+
+			s = connection.prepareStatement(query);
+			s.setString(1, formList.get(0));
+			s.setString(2, formList.get(4));
+			s.executeUpdate();
+
+			s = null;
+
+			query = "UPDATE movie SET genre = ? WHERE movieId = ?";
+
+			s = connection.prepareStatement(query);
+			s.setString(1, formList.get(1));
+			s.setString(2, formList.get(4));
+			s.executeUpdate();
+
+			s = null;
+			
+			query = "UPDATE movie SET duration = ? WHERE movieId = ?";
+
+			s = connection.prepareStatement(query);
+			s.setInt(1, Integer.parseInt(formList.get(2)));
+			s.setString(2, formList.get(4));
+			s.executeUpdate();
+
+			s = null;
+			
+			query = "UPDATE movie SET rating = ? WHERE movieId = ?";
+
+			s = connection.prepareStatement(query);
+			s.setString(1, formList.get(3));
+			s.setString(2, formList.get(4));
+			s.executeUpdate();
+
+			initializeMovieList();
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public void deleteMovie(String movieId)
+	{
+		try
+		{
+			PreparedStatement s = null;
+			String query;
+
+			query = "DELETE FROM showtime WHERE movieId = ?";
+			s = connection.prepareStatement(query);
+			s.setString(1, movieId);
+			
+			s.executeUpdate();
+			
+			s = null;
+
+			query = "DELETE FROM movie WHERE movieId = ?";
+			s = connection.prepareStatement(query);
+			s.setString(1, movieId);
+			
+			s.executeUpdate();
+			
 			initializeMovieList();
 		}
 		catch(SQLException e)
