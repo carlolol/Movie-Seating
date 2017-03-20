@@ -28,6 +28,7 @@ public class CustomerMenuUI extends JPanel
 	private JButton profileB, reserveB, signoutB;
 	private SystemUI systemUI;
 	private MenuHandler menuHandler;
+	private JButton viewB;
 	
 	public CustomerMenuUI(SystemUI systemUI)
 	{
@@ -68,9 +69,18 @@ public class CustomerMenuUI extends JPanel
 		signoutB.setForeground(Color.BLUE);
 		signoutB.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		signoutB.setContentAreaFilled(false);
-		signoutB.setBounds(112, 97, 75, 25);
+		signoutB.setBounds(112, 133, 75, 25);
 		signoutB.addActionListener(menuHandler);
 		centerP.add(signoutB);
+		
+		viewB = new JButton("View Reservations");
+		viewB.setOpaque(false);
+		viewB.setForeground(Color.BLUE);
+		viewB.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		viewB.setContentAreaFilled(false);
+		viewB.setBounds(60, 97, 180, 25);
+		viewB.addActionListener(menuHandler);
+		centerP.add(viewB);
 
 		bgL.setBounds(0,-80,500,500);
 
@@ -91,6 +101,8 @@ public class CustomerMenuUI extends JPanel
 				systemUI.showProfileManagement();
 			else if(action.equals("Reserve"))
 				systemUI.showMovieSelection();
+			else if(action.equals("View Reservations"))
+				systemUI.showTicket();
 			else
 				systemUI.showLogin();
 		}

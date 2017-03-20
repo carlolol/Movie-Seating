@@ -69,11 +69,11 @@ public class MovieSelectionUI extends JPanel
 		timeL = new JLabel("Time and Hall:");
 		timeL.setHorizontalAlignment(SwingConstants.RIGHT);
 		timeL.setForeground(Color.BLUE);
-		timeL.setBounds(46, 77, 102, 14);
+		timeL.setBounds(50, 77, 92, 14);
 		centerP.add(timeL);
 		
 		timeCB = new JComboBox<String>();
-		timeCB.setBounds(158, 72, 153, 25);
+		timeCB.setBounds(150, 72, 153, 25);
 		centerP.add(timeCB);
 		
 		reserveB = new JButton("Reserve a Ticket");

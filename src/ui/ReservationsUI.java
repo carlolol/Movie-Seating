@@ -27,7 +27,7 @@ public class ReservationsUI extends JPanel
     						b1B, b2B, b3B, b4B, b5B, b6B, b7B, b8B, b9B, b10B,
     						c1B, c2B, c3B, c4B, c5B, c6B, c7B, c8B, c9B, c10B,
     						d1B, d2B, d3B, d4B, d5B, d6B, d7B, d8B, d9B, d10B;
-    private ImageIcon green, red;
+    private ImageIcon green, gray;
     
     private ReservationsHandler reservationsHandler;
     
@@ -42,7 +42,7 @@ public class ReservationsUI extends JPanel
     	this.systemUI = systemUI;
     	reservationsHandler = new ReservationsHandler();
     	green = new ImageIcon("../Movie Seating/lib/images/green.png");
-    	red = new ImageIcon("../Movie Seating/lib/images/red.png");
+    	gray = new ImageIcon("../Movie Seating/lib/images/gray.png");
     	
     	bgL = new JLabel();
     	bgL.setIcon(new ImageIcon("../Movie Seating/lib/images/bg2.jpg"));
@@ -598,7 +598,7 @@ public class ReservationsUI extends JPanel
     {
     	tb.setEnabled(false);
     	tb.setSelected(true);
-    	tb.setIcon(red);
+    	tb.setIcon(gray);
     }
     
     
@@ -622,7 +622,7 @@ public class ReservationsUI extends JPanel
                 boolean selected = button.isSelected();
                 if(selected) 
                 {
-                	tb.setIcon(red);
+                	tb.setIcon(gray);
                 	tb.setForeground(Color.WHITE);
                 }
                 else 
@@ -632,7 +632,7 @@ public class ReservationsUI extends JPanel
                 }
         	}
         });
-    	tb.setDisabledSelectedIcon(red);
+    	tb.setDisabledSelectedIcon(gray);
     	tb.setHorizontalTextPosition(JButton.CENTER);
     	tb.setVerticalTextPosition(JButton.CENTER);
     }

@@ -33,6 +33,7 @@ public class SystemUI extends JFrame
 	private MovieSelectionUI movieSelectionUI;
 	private MovieManagementUI movieManagementUI;
 	private ProfileManagementUI profileManagementUI;
+	private TicketUI ticketUI;
 	
 	private ImageIcon img;
 	
@@ -79,6 +80,9 @@ public class SystemUI extends JFrame
 		profileManagementUI = new ProfileManagementUI(this);
 		container.add(profileManagementUI, "Profile Management");
 		
+		ticketUI = new TicketUI(this);
+		container.add(ticketUI, "Ticket");
+		
 		setTitle("Movie Seating System");	
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -113,7 +117,7 @@ public class SystemUI extends JFrame
 	
 	public void showCustomerMenu()
 	{
-		setSize(315, 160);
+		setSize(315, 200);
 		setLocationRelativeTo(null);
 		card.show(container, "Customer Menu");
 		repaint();
@@ -154,7 +158,17 @@ public class SystemUI extends JFrame
 		repaint();
 	}
 	
-	public Customer getLoginCustomer() 
+	public void showTicket()
+	{
+		setSize(490, 200);
+		setLocationRelativeTo(null);
+		card.show(container, "Ticket");
+		reservationsDAO = new ReservationsDAO(connection, loginCustomer.getCustomerId());
+		ticketUI.restartUI();
+		repaint();
+	}
+	
+	public Customer getLoginCustomer()
 	{
 		return loginCustomer;
 	}
@@ -164,7 +178,7 @@ public class SystemUI extends JFrame
 		this.loginCustomer = loginCustomer;
 	}
 	
-	public UserDAO getUserDAO() 
+	public UserDAO getUserDAO()
 	{
 		return userDAO;
 	}
@@ -174,7 +188,7 @@ public class SystemUI extends JFrame
 		this.userDAO = userDAO;
 	}
 	
-	public ShowtimeDAO getShowtimeDAO() 
+	public ShowtimeDAO getShowtimeDAO()
 	{
 		return showtimeDAO;
 	}
@@ -212,6 +226,16 @@ public class SystemUI extends JFrame
 	public void setReportsDAO(ReportsDAO reportsDAO) 
 	{
 		this.reportsDAO = reportsDAO;
+	}
+	
+	public TicketUI getTicketUI() 
+	{
+		return ticketUI;
+	}
+
+	public void setTicketUI(TicketUI ticketUI) 
+	{
+		this.ticketUI = ticketUI;
 	}
 	
 	public boolean isAdmin() 
